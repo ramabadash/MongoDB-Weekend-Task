@@ -2,11 +2,13 @@ const express = require('express');
 
 const router = express.Router();
 
-const { getAllStudents } = require('../controller/student');
+const { getAllStudents, getStudentByName } = require('../controller/student');
 
 // URL/student
 
-// GET - get all students
-router.get('/', getAllStudents);
+/* ---------- GET ---------- */
+
+router.get('/', getAllStudents); // GET - get all students
+router.get('/:name', getStudentByName); // GET - student by name
 
 module.exports = router;
