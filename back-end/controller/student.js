@@ -176,8 +176,7 @@ exports.deleteStudentByName = async (req, res, next) => {
 //DELETE student by birth date (date on query params)
 exports.deleteStudentByDate = async (req, res, next) => {
   const { date } = req.query;
-  console.log(new Date(date));
-  Student.findOneAndDelete({ birth: date })
+  Student.findOneAndDelete({ birth: new Date(date) })
     .then((student) => {
       if (student === null) {
         next(new Error(`No student with date ${date}...`));
