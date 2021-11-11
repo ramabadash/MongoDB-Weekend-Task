@@ -136,3 +136,25 @@ exports.getStudentWithLetterOnName = async (req, res, next) => {
     })
     .catch((error) => next(error));
 };
+
+//Get students that their surName contain one or more of two letters (letters on params)
+exports.getStudentWithLettersOnSurName = async (req, res, next) => {
+  const { letter1 } = req.params;
+  const { letter2 } = req.params;
+  console.log(typeof letter1 + ',' + letter2);
+  Student.find({
+    $or: [{ surName: { $regex: letter1 } }, { surName: { $regex: letter2 } }],
+  })
+    .then((studentsArray) => {
+      if (studentsArray.length === 0) {
+        next(
+          new Error(
+            `No student that their surName contains ${letter1} / ${letter2}...`
+          )
+        );
+      } else {
+        res.status(200).json(studentsArray);
+      }
+    })
+    .catch((error) => next(error));
+};
