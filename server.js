@@ -4,9 +4,12 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 require('dotenv').config();
-const mongoose = require('mongoose');
+// Routers
+const studentRouter = require('./back-end/routers/student');
 
 // DB
+const mongoose = require('mongoose');
+
 mongoose
   .connect(process.env.DATABASE, {
     useNewUrlParser: true,
@@ -14,13 +17,12 @@ mongoose
   .then(() => console.log('DB Connected'))
   .catch((error) => console.log(error));
 
-
-// Routers
-
-
 app.use(cors()); // Cors
 app.use(express.json()); // parses requests as json
 
+// Routers
+app.use('/student', studentRouter);
+
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-  });
+  console.log(`Server running on port ${PORT}`);
+});
