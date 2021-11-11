@@ -14,6 +14,7 @@ const {
   getStudentWithLetterOnName,
   getStudentWithLettersOnSurName,
   deleteStudentByName,
+  deleteStudentByDate,
 } = require('../controller/student');
 
 // URL/student
@@ -37,5 +38,6 @@ router.get('/surName/:letter1/:letter2', getStudentWithLettersOnSurName); //Get 
 
 /* ---------- DELETE ---------- */
 router.delete('/name/:name', deleteStudentByName); //DELETE student by name
+router.delete('/date', deleteStudentByDate); //DELETE student by birth date
 
 module.exports = router;

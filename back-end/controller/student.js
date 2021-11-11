@@ -141,7 +141,6 @@ exports.getStudentWithLetterOnName = async (req, res, next) => {
 exports.getStudentWithLettersOnSurName = async (req, res, next) => {
   const { letter1 } = req.params;
   const { letter2 } = req.params;
-  console.log(typeof letter1 + ',' + letter2);
   Student.find({
     $or: [{ surName: { $regex: letter1 } }, { surName: { $regex: letter2 } }],
   })
@@ -167,6 +166,21 @@ exports.deleteStudentByName = async (req, res, next) => {
     .then((student) => {
       if (student === null) {
         next(new Error(`No student with name ${name}...`));
+      } else {
+        res.status(200).json(true);
+      }
+    })
+    .catch((error) => next(error));
+};
+
+//DELETE student by birth date (date on query params)
+exports.deleteStudentByDate = async (req, res, next) => {
+  const { date } = req.query;
+  console.log(new Date(date));
+  Student.findOneAndDelete({ birth: date })
+    .then((student) => {
+      if (student === null) {
+        next(new Error(`No student with date ${date}...`));
       } else {
         res.status(200).json(true);
       }
