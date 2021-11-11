@@ -158,3 +158,18 @@ exports.getStudentWithLettersOnSurName = async (req, res, next) => {
     })
     .catch((error) => next(error));
 };
+
+/* ---------- DELETE ---------- */
+//DELETE student by name (name on params)
+exports.deleteStudentByName = async (req, res, next) => {
+  const { name } = req.params;
+  Student.findOneAndDelete({ name })
+    .then((student) => {
+      if (student === null) {
+        next(new Error(`No student with name ${name}...`));
+      } else {
+        res.status(200).json(true);
+      }
+    })
+    .catch((error) => next(error));
+};

@@ -13,6 +13,7 @@ const {
   changeStudentBirthByName,
   getStudentWithLetterOnName,
   getStudentWithLettersOnSurName,
+  deleteStudentByName,
 } = require('../controller/student');
 
 // URL/student
@@ -33,5 +34,8 @@ router.put('/date', changeStudentBirthByName); //Update stusent's birth by name
 /* ---------- GET - (TEXT SEACH) ---------- */
 router.get('/name/contain-letter/:letter', getStudentWithLetterOnName); //Get students that their name contains a letter
 router.get('/surName/:letter1/:letter2', getStudentWithLettersOnSurName); //Get students that their surName contain one or more of two letters
+
+/* ---------- DELETE ---------- */
+router.delete('/name/:name', deleteStudentByName); //DELETE student by name
 
 module.exports = router;
