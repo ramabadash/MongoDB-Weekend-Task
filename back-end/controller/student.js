@@ -57,3 +57,17 @@ exports.getStudentByCourseAndGender = async (req, res, next) => {
     })
     .catch((error) => next(error));
 };
+
+//Get student that born after date (date on quary params)
+exports.getStudentByDateMinimum = async (req, res, next) => {
+  const { date } = req.query;
+  Student.find({ birth: { $gt: new Date(date) } })
+    .then((studentsArray) => {
+      if (studentsArray.length === 0) {
+        next(new Error(`No student that their birth was after ${date}...`));
+      } else {
+        res.status(200).json(studentsArray);
+      }
+    })
+    .catch((error) => next(error));
+};
