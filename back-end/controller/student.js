@@ -1,5 +1,7 @@
 const Student = require('../models/student');
 
+/* ---------- GET ---------- */
+
 //Get all studnts object from Students collection
 exports.getAllStudents = async (req, res, next) => {
   Student.find({})
@@ -83,6 +85,22 @@ exports.getStudentByPhoneStart = async (req, res, next) => {
         );
       } else {
         res.status(200).json(studentsArray);
+      }
+    })
+    .catch((error) => next(error));
+};
+
+/* ---------- PUT ---------- */
+//Add stusent a course by name (coures and name on body)
+exports.addcourseToStudentByName = async (req, res, next) => {
+  const { course } = req.body;
+  const { name } = req.body;
+  Student.findOneAndUpdate({ name }, { $push: { courses: course } })
+    .then((student) => {
+      if (student === null) {
+        next(new Error(`No student with name ${name}...`));
+      } else {
+        res.status(200).json(true);
       }
     })
     .catch((error) => next(error));
