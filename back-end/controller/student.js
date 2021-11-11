@@ -71,3 +71,19 @@ exports.getStudentByDateMinimum = async (req, res, next) => {
     })
     .catch((error) => next(error));
 };
+
+//Get student that their phone number start with some numbers (numbers on params)
+exports.getStudentByPhoneStart = async (req, res, next) => {
+  const { startNums } = req.params;
+  Student.find({ phone: { $regex: `^${startNums}` } })
+    .then((studentsArray) => {
+      if (studentsArray.length === 0) {
+        next(
+          new Error(`No student that their phone start with ${startNums}...`)
+        );
+      } else {
+        res.status(200).json(studentsArray);
+      }
+    })
+    .catch((error) => next(error));
+};
