@@ -10,6 +10,7 @@ const {
   getStudentByDateMinimum,
   getStudentByPhoneStart,
   addcourseToStudentByName,
+  changeStudentBirthByName,
 } = require('../controller/student');
 
 // URL/student
@@ -25,5 +26,6 @@ router.get('/phone-start/:startNums', getStudentByPhoneStart); //Get student tha
 
 /* ---------- PUT ---------- */
 router.put('/add-course', addcourseToStudentByName); //Add stusent a course by name
+router.put('/date', changeStudentBirthByName); //Update stusent's birth by name (date and name on body)
 
 module.exports = router;

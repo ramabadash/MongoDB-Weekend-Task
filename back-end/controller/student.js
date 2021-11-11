@@ -105,3 +105,18 @@ exports.addcourseToStudentByName = async (req, res, next) => {
     })
     .catch((error) => next(error));
 };
+
+//Update stusent's birth by name (date and name on body)
+exports.changeStudentBirthByName = async (req, res, next) => {
+  const { date } = req.body;
+  const { name } = req.body;
+  Student.findOneAndUpdate({ name }, { birth: new Date(date) })
+    .then((student) => {
+      if (student === null) {
+        next(new Error(`No student with name ${name}...`));
+      } else {
+        res.status(200).json(true);
+      }
+    })
+    .catch((error) => next(error));
+};
