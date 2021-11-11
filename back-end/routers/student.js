@@ -11,6 +11,7 @@ const {
   getStudentByPhoneStart,
   addcourseToStudentByName,
   changeStudentBirthByName,
+  getStudentWithLetterOnName,
 } = require('../controller/student');
 
 // URL/student
@@ -26,6 +27,9 @@ router.get('/phone-start/:startNums', getStudentByPhoneStart); //Get student tha
 
 /* ---------- PUT ---------- */
 router.put('/add-course', addcourseToStudentByName); //Add stusent a course by name
-router.put('/date', changeStudentBirthByName); //Update stusent's birth by name (date and name on body)
+router.put('/date', changeStudentBirthByName); //Update stusent's birth by name
+
+/* ---------- GET - (TEXT SEACH) ---------- */
+router.get('/name/contain-letter/:letter', getStudentWithLetterOnName); //Get students that their name contains a letter
 
 module.exports = router;

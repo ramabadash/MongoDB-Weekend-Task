@@ -120,3 +120,19 @@ exports.changeStudentBirthByName = async (req, res, next) => {
     })
     .catch((error) => next(error));
 };
+
+/* ---------- GET - (TEXT SEACH) ---------- */
+
+//Get students that their name contains a letter (letter on params)
+exports.getStudentWithLetterOnName = async (req, res, next) => {
+  const { letter } = req.params;
+  Student.find({ name: { $regex: letter } })
+    .then((studentsArray) => {
+      if (studentsArray.length === 0) {
+        next(new Error(`No student that their name contains ${letter}...`));
+      } else {
+        res.status(200).json(studentsArray);
+      }
+    })
+    .catch((error) => next(error));
+};
