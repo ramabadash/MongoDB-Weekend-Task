@@ -40,3 +40,20 @@ exports.getStudentByCourse = async (req, res, next) => {
     })
     .catch((error) => next(error));
 };
+
+//Get student by course & gender (course & gender on params)
+exports.getStudentByCourseAndGender = async (req, res, next) => {
+  const { course } = req.params;
+  const { gender } = req.params;
+  Student.find({ courses: course, gender })
+    .then((studentsArray) => {
+      if (studentsArray.length === 0) {
+        next(
+          new Error(`No student with course ${course} and gender ${gender}...`)
+        );
+      } else {
+        res.status(200).json(studentsArray);
+      }
+    })
+    .catch((error) => next(error));
+};
