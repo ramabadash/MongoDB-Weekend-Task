@@ -6,6 +6,15 @@ const cors = require('cors');
 require('dotenv').config();
 const mongoose = require('mongoose');
 
+// DB
+mongoose
+  .connect(process.env.DATABASE, {
+    useNewUrlParser: true,
+  })
+  .then(() => console.log('DB Connected'))
+  .catch((error) => console.log(error));
+
+
 // Routers
 
 
