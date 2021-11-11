@@ -17,11 +17,25 @@ exports.getAllStudents = async (req, res, next) => {
 exports.getStudentByName = async (req, res, next) => {
   const { name } = req.params;
   Student.find({ name })
-    .then((student) => {
-      if (student.length === 0) {
+    .then((studentsArray) => {
+      if (studentsArray.length === 0) {
         next(new Error(`No student with name ${name}...`));
       } else {
-        res.status(200).json(student);
+        res.status(200).json(studentsArray);
+      }
+    })
+    .catch((error) => next(error));
+};
+
+//Get student by course (course on params)
+exports.getStudentByCourse = async (req, res, next) => {
+  const { course } = req.params;
+  Student.find({ courses: course })
+    .then((studentsArray) => {
+      if (studentsArray.length === 0) {
+        next(new Error(`No student with course ${course}...`));
+      } else {
+        res.status(200).json(studentsArray);
       }
     })
     .catch((error) => next(error));
