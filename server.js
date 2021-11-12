@@ -4,6 +4,8 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 require('dotenv').config();
+// Middleware
+const { errorHandler } = require('./back-end/middlewares/errorHandler');
 // Routers
 const studentRouter = require('./back-end/routers/student');
 const relationshipRouter = require('./back-end/routers/relationships');
@@ -26,6 +28,8 @@ app.use(express.json()); // parses requests as json
 app.use('/student', studentRouter);
 app.use('/relationship', relationshipRouter);
 app.use('/questions', questionsRouter);
+
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
