@@ -15,6 +15,23 @@ exports.getAllQuestions = (req, res, next) => {
     .catch((error) => next(error));
 };
 
+// Get questions by difficulty equal to or above (difficulty on params)
+exports.getQuestionsByDifficulty = async (req, res, next) => {
+  try {
+    const { difficulty } = req.params;
+    const queationsByDifficultyArray = await Questions.find({
+      difficulty: { $gte: difficulty },
+    });
+    if (queationsByDifficultyArray.length === 0)
+      next(
+        new Error(`No questions with difficulty level ${difficulty} or above`)
+      );
+    else res.status(200).json(queationsByDifficultyArray);
+  } catch (error) {
+    next(error);
+  }
+};
+
 /* ---------- POST ---------- */
 
 // Create a question (details on body)
