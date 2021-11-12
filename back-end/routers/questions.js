@@ -1,6 +1,7 @@
 const express = require('express');
 
 const router = express.Router();
+const { validateNewQuestion } = require('../middlewares/questionValidator');
 const {
   getAllQuestions,
   createNewQustion,
@@ -12,7 +13,7 @@ const {
 
 router.get('/list', getAllQuestions); // Get all questions from DB
 
-router.post('/create', createNewQustion); // Create a question
+router.post('/create', validateNewQuestion, createNewQustion); // Create a question
 
 router.delete('/remove/:id', deleteQuestionById); // Delete question by id
 

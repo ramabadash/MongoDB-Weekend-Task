@@ -36,14 +36,9 @@ exports.getQuestionsByDifficulty = async (req, res, next) => {
 // Create a question (details on body)
 exports.createNewQustion = async (req, res, next) => {
   try {
-    const { title, correctAnswer, answers, difficulty } = req.body;
+    const questionObj = req.validatedQuestion;
     //Create new question by schema
-    const newQuestion = await Questions.create({
-      title,
-      correctAnswer,
-      answers,
-      difficulty,
-    });
+    const newQuestion = await Questions.create(questionObj);
     //save new question
     await newQuestion.save();
     res.status(200).json(true);
