@@ -65,15 +65,9 @@ exports.deleteQuestionById = async (req, res, next) => {
 // Update question by id (details on body)
 exports.updateQuestionById = async (req, res, next) => {
   try {
-    const { id, title, correctAnswer, answers, difficulty } = req.body;
-    //Create an object that consists only of keys that the user wanted to update on senf them on body
-    const updateObj = {};
-    if (title) updateObj.title = title;
-    if (correctAnswer) updateObj.correctAnswer = correctAnswer;
-    if (answers) updateObj.answers = answers;
-    if (difficulty) updateObj.difficulty = difficulty;
-
-    await Questions.findByIdAndUpdate({ _id: id }, updateObj);
+    const { id } = req.body;
+    const questionObj = req.validatedQuestion;
+    await Questions.findByIdAndUpdate({ _id: id }, questionObj);
     res.status(200).json(true);
   } catch (error) {
     next({ status: 400, message: error.message });

@@ -31,3 +31,20 @@ exports.validateNewQuestion = (req, res, next) => {
     next({ status: error.status, message: error.message });
   }
 };
+
+//Create an object that contains only of keys that the user wanted to update on senf them on body
+exports.validateUpdateQuestion = (req, res, next) => {
+  try {
+    const { title, correctAnswer, answers, difficulty } = req.body;
+    const questionObj = {};
+    if (title) questionObj.title = title.trim();
+    if (correctAnswer) questionObj.correctAnswer = correctAnswer.trim();
+    if (answers && Array.isArray(answers)) questionObj.answers = answers;
+    if (difficulty && isNaN(difficulty)) questionObj.difficulty = difficulty;
+
+    req.validatedQuestion = questionObj;
+    next();
+  } catch (error) {
+    next({ status: error.status, message: error.message });
+  }
+};

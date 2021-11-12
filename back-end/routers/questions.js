@@ -1,7 +1,10 @@
 const express = require('express');
 
 const router = express.Router();
-const { validateNewQuestion } = require('../middlewares/questionValidator');
+const {
+  validateNewQuestion,
+  validateUpdateQuestion,
+} = require('../middlewares/questionValidator');
 const {
   getAllQuestions,
   createNewQustion,
@@ -19,6 +22,6 @@ router.delete('/remove/:id', deleteQuestionById); // Delete question by id
 
 router.get('/read/by/difficulty/:difficulty', getQuestionsByDifficulty); // Get questions by difficulty equal to or above
 
-router.put('/update', updateQuestionById); // Update question by id and keys with values
+router.put('/update', validateUpdateQuestion, updateQuestionById); // Update question by id and keys with values
 
 module.exports = router;
