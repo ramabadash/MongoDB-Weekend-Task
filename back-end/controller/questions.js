@@ -35,3 +35,16 @@ exports.createNewQustion = async (req, res, next) => {
     next(error);
   }
 };
+
+/* ---------- DELETE ---------- */
+
+// Delete question by id (id on params)
+exports.deleteQuestionById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    await Questions.findByIdAndDelete({ _id: id });
+    res.status(200).json(true);
+  } catch (error) {
+    next(error);
+  }
+};
