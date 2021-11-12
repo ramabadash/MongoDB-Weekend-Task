@@ -12,7 +12,7 @@ exports.getAllStudents = async (req, res, next) => {
         res.status(200).json(studentsArray);
       }
     })
-    .catch((error) => next(error));
+    .catch((error) => next({ status: 400, message: error.message }));
 };
 
 //Get student by name (name on params)
@@ -26,7 +26,7 @@ exports.getStudentByName = async (req, res, next) => {
         res.status(200).json(studentsArray);
       }
     })
-    .catch((error) => next(error));
+    .catch((error) => next({ status: 400, message: error.message }));
 };
 
 //Get student by course (course on params)
@@ -40,7 +40,7 @@ exports.getStudentByCourse = async (req, res, next) => {
         res.status(200).json(studentsArray);
       }
     })
-    .catch((error) => next(error));
+    .catch((error) => next({ status: 400, message: error.message }));
 };
 
 //Get student by course & gender (course & gender on params)
@@ -55,7 +55,7 @@ exports.getStudentByCourseAndGender = async (req, res, next) => {
         res.status(200).json(studentsArray);
       }
     })
-    .catch((error) => next(error));
+    .catch((error) => next({ status: 400, message: error.message }));
 };
 
 //Get student that born after date (date on quary params)
@@ -69,7 +69,7 @@ exports.getStudentByDateMinimum = async (req, res, next) => {
         res.status(200).json(studentsArray);
       }
     })
-    .catch((error) => next(error));
+    .catch((error) => next({ status: 400, message: error.message }));
 };
 
 //Get student that their phone number start with some numbers (numbers on params)
@@ -83,7 +83,7 @@ exports.getStudentByPhoneStart = async (req, res, next) => {
         res.status(200).json(studentsArray);
       }
     })
-    .catch((error) => next(error));
+    .catch((error) => next({ status: 400, message: error.message }));
 };
 
 /* ---------- PUT ---------- */
@@ -99,7 +99,7 @@ exports.addcourseToStudentByName = async (req, res, next) => {
         res.status(200).json(true);
       }
     })
-    .catch((error) => next(error));
+    .catch((error) => next({ status: 400, message: error.message }));
 };
 
 //Update stusent's birth by name (date and name on body)
@@ -114,7 +114,7 @@ exports.changeStudentBirthByName = async (req, res, next) => {
         res.status(200).json(true);
       }
     })
-    .catch((error) => next(error));
+    .catch((error) => next({ status: 400, message: error.message }));
 };
 
 /* ---------- GET - (TEXT SEACH) ---------- */
@@ -130,7 +130,7 @@ exports.getStudentWithLetterOnName = async (req, res, next) => {
         res.status(200).json(studentsArray);
       }
     })
-    .catch((error) => next(error));
+    .catch((error) => next({ status: 400, message: error.message }));
 };
 
 //Get students that their surName contain one or more of two letters (letters on params)
@@ -147,7 +147,7 @@ exports.getStudentWithLettersOnSurName = async (req, res, next) => {
         res.status(200).json(studentsArray);
       }
     })
-    .catch((error) => next(error));
+    .catch((error) => next({ status: 400, message: error.message }));
 };
 
 /* ---------- DELETE ---------- */
@@ -162,7 +162,7 @@ exports.deleteStudentByName = async (req, res, next) => {
         res.status(200).json(true);
       }
     })
-    .catch((error) => next(error));
+    .catch((error) => next({ status: 400, message: error.message }));
 };
 
 //DELETE student by birth date (date on query params)
@@ -176,5 +176,5 @@ exports.deleteStudentByDate = async (req, res, next) => {
         res.status(200).json(true);
       }
     })
-    .catch((error) => next(error));
+    .catch((error) => next({ status: 400, message: error.message }));
 };

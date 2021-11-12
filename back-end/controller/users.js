@@ -11,5 +11,5 @@ exports.getAllUsers = async (req, res, next) => {
         res.status(200).json(usersArray);
       }
     })
-    .catch((error) => next(error));
+    .catch((error) => next({ status: 400, message: error.message }));
 };

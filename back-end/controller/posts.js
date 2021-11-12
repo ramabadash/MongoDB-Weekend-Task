@@ -11,7 +11,7 @@ exports.getAllPosts = async (req, res, next) => {
         res.status(200).json(postsArray);
       }
     })
-    .catch((error) => next(error));
+    .catch((error) => next({ status: 400, message: error.message }));
 };
 
 //Get posts by userName (user name on params)
@@ -25,5 +25,5 @@ exports.getPostsByUserName = async (req, res, next) => {
         res.status(200).json(postsArray);
       }
     })
-    .catch((error) => next(error));
+    .catch((error) => next({ status: 400, message: error.message }));
 };

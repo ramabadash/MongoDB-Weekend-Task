@@ -12,7 +12,7 @@ exports.getAllQuestions = (req, res, next) => {
         res.status(200).json(questionsArray);
       }
     })
-    .catch((error) => next(error));
+    .catch((error) => next({ status: 400, message: error.message }));
 };
 
 // Get questions by difficulty equal to or above (difficulty on params)
@@ -27,7 +27,7 @@ exports.getQuestionsByDifficulty = async (req, res, next) => {
       res.status(200).json(false);
     } else res.status(200).json(queationsByDifficultyArray);
   } catch (error) {
-    next(error);
+    next({ status: 400, message: error.message });
   }
 };
 
@@ -48,7 +48,7 @@ exports.createNewQustion = async (req, res, next) => {
     await newQuestion.save();
     res.status(200).json(true);
   } catch (error) {
-    next(error);
+    next({ status: 400, message: error.message });
   }
 };
 
@@ -61,7 +61,7 @@ exports.deleteQuestionById = async (req, res, next) => {
     await Questions.findByIdAndDelete({ _id: id });
     res.status(200).json(true);
   } catch (error) {
-    next(error);
+    next({ status: 400, message: error.message });
   }
 };
 
@@ -81,6 +81,6 @@ exports.updateQuestionById = async (req, res, next) => {
     await Questions.findByIdAndUpdate({ _id: id }, updateObj);
     res.status(200).json(true);
   } catch (error) {
-    next(error);
+    next({ status: 400, message: error.message });
   }
 };

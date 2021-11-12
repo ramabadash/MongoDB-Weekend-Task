@@ -12,7 +12,7 @@ exports.getAllComments = async (req, res, next) => {
         res.status(200).json(commentsArray);
       }
     })
-    .catch((error) => next(error));
+    .catch((error) => next({ status: 400, message: error.message }));
 };
 
 //Get all comment by user name (username on params)
@@ -26,7 +26,7 @@ exports.getCommentsByUserName = async (req, res, next) => {
         res.status(200).json(commentsArray);
       }
     })
-    .catch((error) => next(error));
+    .catch((error) => next({ status: 400, message: error.message }));
 };
 
 //Get all comment by postTitle (title on params)
@@ -40,6 +40,6 @@ exports.getCommentsByPostTitle = async (req, res, next) => {
     if (commentsArray.length === 0) res.status(200).json(false); //No comments from posts with title
     res.status(200).json(commentsArray); // Return relevant comments
   } catch (error) {
-    next(error);
+    next({ status: 400, message: error.message });
   }
 };
