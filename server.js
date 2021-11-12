@@ -7,6 +7,7 @@ require('dotenv').config();
 // Routers
 const studentRouter = require('./back-end/routers/student');
 const relationshipRouter = require('./back-end/routers/relationships');
+const questionsRouter = require('./back-end/routers/questions');
 
 // DB
 const mongoose = require('mongoose');
@@ -24,6 +25,7 @@ app.use(express.json()); // parses requests as json
 // Routers
 app.use('/student', studentRouter);
 app.use('/relationship', relationshipRouter);
+app.use('/questions', questionsRouter);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
