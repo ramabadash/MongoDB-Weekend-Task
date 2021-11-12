@@ -6,7 +6,7 @@ exports.getAllPosts = async (req, res, next) => {
   Posts.find({})
     .then((postsArray) => {
       if (postsArray.length === 0) {
-        next(new Error('No posts here...'));
+        res.status(200).json(false); // No posts
       } else {
         res.status(200).json(postsArray);
       }
@@ -20,7 +20,7 @@ exports.getPostsByUserName = async (req, res, next) => {
   Posts.find({ username })
     .then((postsArray) => {
       if (postsArray.length === 0) {
-        next(new Error(`No posts by autor ${username}...`));
+        res.status(200).json(false); // No posts by autor username
       } else {
         res.status(200).json(postsArray);
       }

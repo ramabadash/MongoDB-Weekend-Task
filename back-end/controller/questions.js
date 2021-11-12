@@ -7,7 +7,7 @@ exports.getAllQuestions = (req, res, next) => {
   Questions.find({})
     .then((questionsArray) => {
       if (questionsArray.length === 0) {
-        next(new Error('No questions here...'));
+        res.status(200).json(false); // No questions
       } else {
         res.status(200).json(questionsArray);
       }
@@ -22,11 +22,10 @@ exports.getQuestionsByDifficulty = async (req, res, next) => {
     const queationsByDifficultyArray = await Questions.find({
       difficulty: { $gte: difficulty },
     });
-    if (queationsByDifficultyArray.length === 0)
-      next(
-        new Error(`No questions with difficulty level ${difficulty} or above`)
-      );
-    else res.status(200).json(queationsByDifficultyArray);
+    if (queationsByDifficultyArray.length === 0) {
+      // No questions with difficulty level "difficulty" or above
+      res.status(200).json(false);
+    } else res.status(200).json(queationsByDifficultyArray);
   } catch (error) {
     next(error);
   }

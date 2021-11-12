@@ -6,7 +6,7 @@ exports.getAllUsers = async (req, res, next) => {
   Users.find({})
     .then((usersArray) => {
       if (usersArray.length === 0) {
-        next(new Error('No users here...'));
+        res.status(200).json(false); //No users
       } else {
         res.status(200).json(usersArray);
       }

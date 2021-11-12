@@ -7,7 +7,7 @@ exports.getAllStudents = async (req, res, next) => {
   Student.find({})
     .then((studentsArray) => {
       if (studentsArray.length === 0) {
-        next(new Error('No students here...'));
+        res.status(200).json(false); //No students
       } else {
         res.status(200).json(studentsArray);
       }
@@ -21,7 +21,7 @@ exports.getStudentByName = async (req, res, next) => {
   Student.find({ name })
     .then((studentsArray) => {
       if (studentsArray.length === 0) {
-        next(new Error(`No student with name ${name}...`));
+        res.status(200).json(false); //No students with name "name"
       } else {
         res.status(200).json(studentsArray);
       }
@@ -35,7 +35,7 @@ exports.getStudentByCourse = async (req, res, next) => {
   Student.find({ courses: course })
     .then((studentsArray) => {
       if (studentsArray.length === 0) {
-        next(new Error(`No student with course ${course}...`));
+        res.status(200).json(false); //No students with course "course"
       } else {
         res.status(200).json(studentsArray);
       }
@@ -50,9 +50,7 @@ exports.getStudentByCourseAndGender = async (req, res, next) => {
   Student.find({ courses: course, gender })
     .then((studentsArray) => {
       if (studentsArray.length === 0) {
-        next(
-          new Error(`No student with course ${course} and gender ${gender}...`)
-        );
+        res.status(200).json(false); //No students with course "course" and gender "gender"
       } else {
         res.status(200).json(studentsArray);
       }
@@ -66,7 +64,7 @@ exports.getStudentByDateMinimum = async (req, res, next) => {
   Student.find({ birth: { $gt: new Date(date) } })
     .then((studentsArray) => {
       if (studentsArray.length === 0) {
-        next(new Error(`No student that their birth was after ${date}...`));
+        res.status(200).json(false); //No student that their birth was after "date"
       } else {
         res.status(200).json(studentsArray);
       }
@@ -80,9 +78,7 @@ exports.getStudentByPhoneStart = async (req, res, next) => {
   Student.find({ phone: { $regex: `^${startNums}` } })
     .then((studentsArray) => {
       if (studentsArray.length === 0) {
-        next(
-          new Error(`No student that their phone start with ${startNums}...`)
-        );
+        res.status(200).json(false); //No student that their phone start with "startNums"
       } else {
         res.status(200).json(studentsArray);
       }
@@ -98,7 +94,7 @@ exports.addcourseToStudentByName = async (req, res, next) => {
   Student.findOneAndUpdate({ name }, { $push: { courses: course } })
     .then((student) => {
       if (student === null) {
-        next(new Error(`No student with name ${name}...`));
+        res.status(200).json(false); //No student that their name "name"
       } else {
         res.status(200).json(true);
       }
@@ -113,7 +109,7 @@ exports.changeStudentBirthByName = async (req, res, next) => {
   Student.findOneAndUpdate({ name }, { birth: new Date(date) })
     .then((student) => {
       if (student === null) {
-        next(new Error(`No student with name ${name}...`));
+        res.status(200).json(false); //No student that their name "name"
       } else {
         res.status(200).json(true);
       }
@@ -129,7 +125,7 @@ exports.getStudentWithLetterOnName = async (req, res, next) => {
   Student.find({ name: { $regex: letter } })
     .then((studentsArray) => {
       if (studentsArray.length === 0) {
-        next(new Error(`No student that their name contains ${letter}...`));
+        res.status(200).json(false); //No student that their name contains "letter"
       } else {
         res.status(200).json(studentsArray);
       }
@@ -146,11 +142,7 @@ exports.getStudentWithLettersOnSurName = async (req, res, next) => {
   })
     .then((studentsArray) => {
       if (studentsArray.length === 0) {
-        next(
-          new Error(
-            `No student that their surName contains ${letter1} / ${letter2}...`
-          )
-        );
+        res.status(200).json(false); //No student that their surName contains "letter1" / "letter2"
       } else {
         res.status(200).json(studentsArray);
       }
@@ -165,7 +157,7 @@ exports.deleteStudentByName = async (req, res, next) => {
   Student.findOneAndDelete({ name })
     .then((student) => {
       if (student === null) {
-        next(new Error(`No student with name ${name}...`));
+        res.status(200).json(false); //No student with name "name"
       } else {
         res.status(200).json(true);
       }
@@ -179,7 +171,7 @@ exports.deleteStudentByDate = async (req, res, next) => {
   Student.findOneAndDelete({ birth: new Date(date) })
     .then((student) => {
       if (student === null) {
-        next(new Error(`No student with date ${date}...`));
+        res.status(200).json(false); //No student with date "date"
       } else {
         res.status(200).json(true);
       }
