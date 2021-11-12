@@ -10,7 +10,7 @@ const UserSchema = new mongoose.Schema({
     required: true,
   },
   last_name: {
-    type: Date,
+    type: String,
     required: true,
   },
 });
