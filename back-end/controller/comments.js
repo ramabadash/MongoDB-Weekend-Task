@@ -1,4 +1,5 @@
 const Comments = require('../models/comment');
+const Posts = require('../models/post');
 
 /* ---------- GET ---------- */
 //Get all comment objects
@@ -26,4 +27,21 @@ exports.getCommentsByUserName = async (req, res, next) => {
       }
     })
     .catch((error) => next(error));
+};
+
+//Get all comment by postTitle (title on params)
+exports.getCommentsByPostTitle = async (req, res, next) => {
+  try {
+    const { title } = req.params;
+    const postsArray = await Posts.find({ title });
+    if (postsArray.length === 0)
+      next(new Error(`No posts with title ${title}...`)); //No posts with this title
+    const postId = postsArray[0]._id;
+    const commentsArray = await Comments.find({ post: postId });
+    if (commentsArray.length === 0)
+      next(new Error(`No comments from posts with title ${title}...`)); //No comments from posts with title
+    res.status(200).json(commentsArray); // Return relevant comments
+  } catch (error) {
+    next(error);
+  }
 };
