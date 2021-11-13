@@ -65,7 +65,7 @@ exports.deleteQuestionById = async (req, res, next) => {
 // Update question by id (details on body)
 exports.updateQuestionById = async (req, res, next) => {
   try {
-    const { id } = req.body;
+    const { id } = req.params;
     const questionObj = req.validatedQuestion;
     await Questions.findByIdAndUpdate({ _id: id }, questionObj);
     res.status(200).json(true);

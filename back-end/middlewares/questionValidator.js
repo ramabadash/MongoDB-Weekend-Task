@@ -1,3 +1,6 @@
+const mongoose = require('mongoose');
+
+//
 exports.validateNewQuestion = (req, res, next) => {
   const { title, correctAnswer, answers, difficulty } = req.body;
   const questionObj = {};
@@ -43,6 +46,18 @@ exports.validateUpdateQuestion = (req, res, next) => {
     if (difficulty && isNaN(difficulty)) questionObj.difficulty = difficulty;
 
     req.validatedQuestion = questionObj;
+    next();
+  } catch (error) {
+    next({ status: error.status, message: error.message });
+  }
+};
+
+//Valid mongoose id
+exports.validMongooseId = (req, res, next) => {
+  try {
+    const { id } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(id))
+      throw { status: 400, message: 'Invalid ID' };
     next();
   } catch (error) {
     next({ status: error.status, message: error.message });
